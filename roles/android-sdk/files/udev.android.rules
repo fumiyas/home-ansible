@@ -1,0 +1,9 @@
+## Vendor 0fce: Sony
+## Product 51bb: SO-02G (NTT docomo Xperia Z3 compact)
+SUBSYSTEM=="usb", \
+ATTRS{idVendor}=="0fce", \
+ATTRS{idProduct}=="51bb", \
+  MODE="0660", \
+  GROUP="plugdev"
+
+## vim:filetype=udevrules

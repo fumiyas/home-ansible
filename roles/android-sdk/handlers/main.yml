@@ -1,0 +1,4 @@
+- name: "udevd reload"
+  sudo: true
+  shell: udevadm control --reload
+
