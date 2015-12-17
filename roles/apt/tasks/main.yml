@@ -1,0 +1,29 @@
+- name: "Creating download directory"
+  file:
+    path: download/apt
+    state: directory
+    mode: 0750
+
+- name: "VirtualBox.org: Downloading oracle_vbox.asc for apt source"
+  get_url:
+    url: https://www.virtualbox.org/download/oracle_vbox.asc
+    dest: download/apt/
+
+- name: "VirtualBox.org: Getting keyid of oracle_vbox.asc"
+  shell: |
+    gpg --list-packets download/apt/oracle_vbox.asc |sed -n '/^\s*keyid:/{s/.*: //;p;q}'
+  register: oracle_vbox_keyid
+  changed_when: false
+
+- name: "VirtualBox.org: Checking if oracle_vbox.asc is installed"
+  command:
+    apt-key list {{oracle_vbox_keyid.stdout}}
+  register: apt_key_list
+  changed_when: false
+
+
+- name: "VirtualBox.org: Installing oracle_vbox.asc"
+  command:
+    apt-key add download/apt/oracle_vbox.asc
+  become: true
+  when: apt_key_list.stdout == ""
