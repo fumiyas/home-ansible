@@ -1,6 +1,6 @@
 ANSIBLE_PLAYBOOK_CMD=	ansible-playbook
-ANSIBLE_INVENTORY=	ansible.hosts
-ANSIBLE_PLAYBOOK=	ansible.yml
+ANSIBLE_INVENTORY=	production/inventory.ini
+ANSIBLE_PLAYBOOK=	site.yml
 
 default:
 

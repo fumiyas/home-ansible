@@ -1,4 +1,7 @@
-- hosts: desktop
+- name: Debian Desktop for me
+  hosts: desktop
+  connection: local
   roles:
-    - android-sdk
+    - apt
+    #- debian-package
 
