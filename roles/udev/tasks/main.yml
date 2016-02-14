@@ -1,0 +1,10 @@
+- name: "NIC rules"
+  copy:
+    src=nic.rules
+    dest=/etc/udev/rules.d/50-nic.rules
+    mode=0644
+    owner=root
+    group=root
+  become: true
+  notify: udev restart
+
