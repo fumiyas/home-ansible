@@ -6,5 +6,5 @@ KERNEL=="eth*", \
 ACTION=="add", \
 SUBSYSTEM=="net", \
 KERNEL=="wlan*", \
-  RUN+="/sbin/iw dev %k set power_save on"
+  RUN+="/sbin/iw dev %k set power_save on; /sbin/iwconfig %k power timeout 100m all"
 
