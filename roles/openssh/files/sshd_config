@@ -1,0 +1,71 @@
+## OpenSSH: sshd_config(5)
+## ======================================================================
+
+ListenAddress [::]:22
+ListenAddress 0.0.0.0:22
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+UsePrivilegeSeparation yes
+
+KeyRegenerationInterval 3600
+ServerKeyBits 1024
+
+SyslogFacility AUTH
+LogLevel INFO
+
+LoginGraceTime 120
+PermitRootLogin prohibit-password
+StrictModes no
+
+## ======================================================================
+
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+
+AcceptEnv LANG LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL
+
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+UsePAM yes
+
+## ======================================================================
+
+RSAAuthentication no
+PubkeyAuthentication yes
+
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+
+## ----------------------------------------------------------------------
+
+PermitEmptyPasswords no
+
+PasswordAuthentication no
+
+ChallengeResponseAuthentication no
+
+KerberosAuthentication no
+#KerberosGetAFSToken no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+
+GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+
+## ======================================================================
+
+Match Address ::1
+  PasswordAuthentication yes
+
+Match Address 127.0.0.1
+  PasswordAuthentication yes
+

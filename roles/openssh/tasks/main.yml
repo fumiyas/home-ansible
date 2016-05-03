@@ -1,0 +1,27 @@
+- name: "Debian packages"
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: false
+  with_items:
+    - openssh-server
+    - openssh-client
+  become: true
+
+- name: "Config file: sshd_config(5)"
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/
+    mode: 0644
+    owner: root
+    group: root
+  become: true
+  notify: sshd reload
+
+- name: "Service"
+  service:
+    name: sshd
+    state: started
+    enabled: true
+  become: true
+
