@@ -7,4 +7,6 @@
     #- debian-package
     - role: openssh
       tags: [openssh,ssh]
+    - role: dm-crypt/home
+      tags: [home]
 

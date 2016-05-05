@@ -1,0 +1,25 @@
+- name: "Script files"
+  copy:
+    src: "{{item}}"
+    dest: /srv/sbin
+    mode: 0744
+    owner: root
+    group: root
+  with_items:
+    - crypthome-pam
+    - crypthome-mount
+    - crypthome-umount
+  become: true
+
+- name: "systemd unit file"
+  copy:
+    src: "{{item}}"
+    dest: /etc/systemd/system/
+    mode: 0744
+    owner: root
+    group: root
+  with_items:
+    - homedir@.service
+  become: true
+  notify: systemd daemon-reload
+

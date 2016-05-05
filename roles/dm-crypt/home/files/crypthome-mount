@@ -1,0 +1,47 @@
+#!/bin/sh
+
+exec >/tmp/m.log 2>&1
+set -x
+
+set -u
+export PATH="/bin:/usr/bin:/sbin:/usr/sbin"
+
+uid="$1"; shift
+
+pwent=$(getent passwd "$uid") || exit 0
+name=$(echo "$pwent" |sed 's/:.*$//')
+home=$(echo "$pwent" |sed 's/^.*:\([^:]*\):[^:]*$/\1/')
+[[ -n $name && -n $home ]] || exit 0
+key=$(keyctl request user "user:$uid") || exit 0
+
+trap 'keyctl revoke "$key"' EXIT
+
+device_crypted=$(
+  lvs \
+    --noheadings \
+    --options lv_name,lv_path \
+  |awk \
+    -v name="$name" \
+    '$1==name {print $2}' \
+  ;
+)
+[[ -n $device_crypted ]] || exit 0
+
+device_decrypted_name="$name.decrypthome.$(basename "$(realpath "$device_crypted")")"
+device_decrypted="/dev/mapper/$device_decrypted_name"
+
+if ! cryptsetup status "$device_decrypted_name" >/dev/null 2>&1; then
+  keyctl \
+    pipe \
+    "$key" \
+  |cryptsetup \
+    open \
+    "$device_crypted" \
+    "$device_decrypted_name" \
+    --key-file - \
+  || exit 1
+fi
+
+mount "$device_decrypted" "$home" \
+|| exit 1
+

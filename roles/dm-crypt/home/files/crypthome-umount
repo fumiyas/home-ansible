@@ -1,0 +1,18 @@
+#!/bin/sh
+
+exec >/tmp/u.log 2>&1
+set -x
+
+set -u
+export PATH="/bin:/usr/bin:/sbin:/usr/sbin"
+
+uid="$1"
+
+pwent=$(getent passwd "$uid") || exit 0
+home=$(echo "$pwent" |sed 's/^.*:\([^:]*\):[^:]*$/\1/')
+device=$(awk -v home="$home" '$2==home {print $1}' /proc/mounts)
+[[ -n $home && -n $device ]] || exit 0
+
+umount "$home" || exit 1
+cryptsetup close "$device" || exit 1
+
