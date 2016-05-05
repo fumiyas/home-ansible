@@ -8,11 +8,11 @@ export PATH="/bin:/usr/bin:/sbin:/usr/sbin"
 
 uid="$1"; shift
 
-pwent=$(getent passwd "$uid") || exit 0
+pwent=$(getent passwd "$uid") || exit $?
 name=$(echo "$pwent" |sed 's/:.*$//')
 home=$(echo "$pwent" |sed 's/^.*:\([^:]*\):[^:]*$/\1/')
-[[ -n $name && -n $home ]] || exit 0
-key=$(keyctl request user "user:$uid") || exit 0
+[[ -n $name && -n $home ]] || exit $?
+key=$(keyctl request user "user:$uid") || exit $?
 
 trap 'keyctl revoke "$key"' EXIT
 
@@ -27,7 +27,7 @@ device_crypted=$(
 )
 [[ -n $device_crypted ]] || exit 0
 
-device_decrypted_name="$name.decrypthome.$(basename "$(realpath "$device_crypted")")"
+device_decrypted_name="$name.$uid.decrypthome.$(basename "$(realpath "$device_crypted")")"
 device_decrypted="/dev/mapper/$device_decrypted_name"
 
 if ! cryptsetup status "$device_decrypted_name" >/dev/null 2>&1; then
@@ -39,9 +39,10 @@ if ! cryptsetup status "$device_decrypted_name" >/dev/null 2>&1; then
     "$device_crypted" \
     "$device_decrypted_name" \
     --key-file - \
-  || exit 1
+  || exit $?
 fi
 
-mount "$device_decrypted" "$home" \
-|| exit 1
+mount "$device_decrypted" "$home" || exit $?
+
+exit 0
 

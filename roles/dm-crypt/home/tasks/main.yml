@@ -15,7 +15,7 @@
   copy:
     src: "{{item}}"
     dest: /etc/systemd/system/
-    mode: 0744
+    mode: 0644
     owner: root
     group: root
   with_items:
