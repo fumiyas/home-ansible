@@ -1,0 +1,38 @@
+127.0.0.1	localhost
+
+::1		localhost ip6-localhost ip6-loopback
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+
+172.31.0.1	router.lan.sfo.jp	router		sip.lan.sfo.jp
+172.31.0.2	pi.lan.sfo.jp		pi		pi.sfo.jp
+172.31.0.4	basil.lan.sfo.jp	basil		basil.sfo.jp
+
+172.31.0.8	hub.lan.sfo.jp		hub
+
+172.31.0.16	wlan.lan.sfo.jp		wlan
+172.31.0.17	wlan-g.lan.sfo.jp	wlan-g
+172.31.0.18	wlan-ether.lan.sfo.jp	wlan-ether
+172.31.0.19	wlan-ac.lan.sfo.jp	wlan-ac
+#172.31.0.20	wlan-x.lan.sfo.jp	wlan-x		dd dd-wrt
+
+172.31.0.32	ps.lan.sfo.jp		ps		ps4
+172.31.0.33	nasne.lan.sfo.jp	nasne
+172.31.0.34	psv.lan.sfo.jp		psv		psvitatv
+172.31.0.36	chromecast.lan.sfo.jp	chromecast
+172.31.0.37	firetv.lan.sfo.jp	firetv
+172.31.0.40	sharp.lan.sfo.jp	sharp
+172.31.0.41	yamaha.lan.sfo.jp	yamaha		rx-s600
+
+172.31.0.64	sugar.lan.sfo.jp	sugar
+172.31.0.65	sugar2.lan.sfo.jp	sugar2
+172.31.0.69	sugar-old.lan.sfo.jp	sugar-old
+
+172.31.0.80	xperia.lan.sfo.jp	xperia		xperia-xp
+172.31.0.81	nexus.lan.sfo.jp	nexus		nexus7
+172.31.0.82	ipad.lan.sfo.jp		ipad		ipad4
+172.31.0.85	3ds.lan.sfo.jp		3ds
+172.31.0.86	nex.lan.sfo.jp		nex		nex-6
+172.31.0.90	xperia-z1f.lan.sfo.jp	xperia-z1f
+172.31.0.91	xperia-z3c.lan.sfo.jp	xperia-z3c
+172.31.0.92	nova.lan.sfo.jp		nova

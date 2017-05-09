@@ -10,3 +10,18 @@
     - role: dm-crypt/home
       tags: [home]
 
+- name: "rsyslog server"
+  hosts: rsyslog-server
+  roles:
+    - rsyslog/server
+  tags: [rsyslog]
+
+- name: "PowerDNS Recursor"
+  hosts: powerdns-recursor
+  roles:
+    - powerdns/recursor
+
+- name: "ISC DHCP Server"
+  hosts: isc-dhcp-server
+  roles:
+    - isc-dhcp/server
