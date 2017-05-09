@@ -1,0 +1,5 @@
+rsyslog_server_udp_port:
+rsyslog_server_udp_clients: []
+
+rsyslog_server_tcp_port:
+rsyslog_server_tcp_clients: []

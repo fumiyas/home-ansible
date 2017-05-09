@@ -1,0 +1,10 @@
+- name: "Install configuration files"
+  template:
+    src: rsyslog.conf
+    dest: /etc/rsyslog.d/server.conf
+    mode: 0444
+    owner: root
+    group: root
+    backup: false
+  become: true
+  notify: "rsyslog: Restart"
