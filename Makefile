@@ -11,6 +11,7 @@ ANSIBLE_PLAYBOOK_CMD=\
     $(ANSIBLE_OPTS) \
     --limit="$(LIMIT)" \
     --tags="$(TAGS)" \
+    --diff \
     "$(PLAYBOOK)"
 
 ## ----------------------------------------------------------------------
