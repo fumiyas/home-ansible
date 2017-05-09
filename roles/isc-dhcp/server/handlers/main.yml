@@ -1,0 +1,5 @@
+- name: "ISC DHCP Server: Restart"
+  service:
+    name: isc-dhcp-server
+    state: restarted
+  become: true

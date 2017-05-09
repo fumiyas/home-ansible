@@ -1,0 +1,28 @@
+- name: "Install packages"
+  apt:
+    name: "{{item}}"
+    state: latest
+    update_cache: false
+  with_items:
+    - isc-dhcp-server
+  become: true
+
+- name: "Install configuration files"
+  copy:
+    src: "{{item}}"
+    dest: /etc/dhcp/
+    mode: 0444
+    owner: root
+    group: root
+    backup: false
+  become: true
+  notify: "ISC DHCP Server: Restart"
+  with_items:
+    - isc-dhcp/server/dhcpd.conf
+
+- name: "Start service"
+  service:
+    name: isc-dhcp-server
+    state: running
+    enabled: true
+  become: true
